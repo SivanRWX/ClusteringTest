@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt  # 导入matplotlib用于绘图
+import numpy as np
 from sklearn.preprocessing import StandardScaler  # 导入StandardScaler用于数据标准化
 from sklearn.cluster import KMeans  # 导入KMeans用于K-means++聚类
 import seaborn as sns  # 导入seaborn用于可视化
@@ -25,9 +26,15 @@ def k_means_plus_clustering(data, features, best_k):
     kmeans = KMeans(n_clusters=best_k, init='k-means++', random_state=42)  # 创建K-means++聚类模型，设置参数
     kmeans_labels = kmeans.fit_predict(X_scaled)  # 对标准化后的数据进行聚类，获取聚类标签
 
+    # 计算聚类性能指标
+    unique_labels = np.unique(kmeans_labels)
+    n_clusters = len(unique_labels)  # 获取聚类簇数量
+    print(f"聚类簇数量: {n_clusters}")  # 打印聚类簇数量
+    print(f"噪声点数量: {np.sum(kmeans_labels == -1)}")  # 计算并打印噪声点数量
+
     # 可视化聚类结果
     plt.figure(figsize=(10, 6))  # 设置图像大小
-    sns.scatterplot(x=X[:, 0], y=X[:, 1], hue=kmeans_labels, palette='viridis', s=100)  # 绘制聚类散点图
+    sns.scatterplot(x=X_scaled[:, 0], y=X_scaled[:, 1], hue=kmeans_labels, palette='viridis', s=100)  # 绘制聚类散点图
     plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1],
                 s=300, c='red', marker='X', label='聚类中心')  # 绘制聚类中心
     plt.title(f'K-means++ 聚类结果 (K={best_k})')  # 设置标题

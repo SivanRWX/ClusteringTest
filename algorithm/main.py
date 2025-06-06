@@ -21,6 +21,7 @@ def rc():
 
 
 def rawdata():
+    """可视化原始数据"""
     # 选择特征：年收入和消费分数
     X = data[['Annual Income (k$)', 'Spending Score (1-100)']].values
 
@@ -80,7 +81,7 @@ if __name__ == "__main__":
     # 层次 聚类
     # 定义特征和层次聚类参数
     features = ['Annual Income (k$)', 'Spending Score (1-100)']
-    method = 'ward'
+    method = 'ward'  # 基于最小化簇内方差
     n_clusters = 5
     # 调用层次聚类方法
     hierarchical_clustering(data, features, method, n_clusters)
@@ -88,6 +89,90 @@ if __name__ == "__main__":
     hierarchical_clustering_gender(data, features, method, n_clusters, gender='Female')
     print("已完成层次聚类")
 
-    plt.title(f'K-means聚类结果 (K={best_k})')  # 设置标题
-    plt.xlabel('年收入 (k$)')
-    plt.ylabel('消费分数 (1-100)')
+    # 月牙型簇分析
+    # 加载数据集
+    data = pd.read_csv('Half_Moons_Customers.csv', index_col='CustomerID')
+    print(data.head(n=200))  # 打印数据集
+    data.Genre.value_counts()  # 统计性别分布
+
+    # 原始数据
+    rawdata()
+
+    # k-means 聚类
+    # 定义特征和最佳 K 值
+    features = ['Annual Income (k$)', 'Spending Score (1-100)']
+    best_k = 5
+    # 调用 K-means 聚类方法
+    k_means_clustering(data, features, best_k)
+    print("已完成 K-means 聚类")
+
+    # k-means++ 聚类
+    # 定义特征和最佳 K 值
+    features = ['Annual Income (k$)', 'Spending Score (1-100)']
+    best_k = 5
+
+    # 调用 k-means++ 聚类方法
+    k_means_plus_clustering(data, features, best_k)
+    print("已完成 K-means++ 聚类")
+
+    # DBSCAN 聚类
+    # 定义特征和 DBSCAN 参数
+    features = ['Annual Income (k$)', 'Spending Score (1-100)']
+    eps = 0.3
+    min_samples = 5
+    # 调用 DBSCAN 聚类方法
+    dbscan_clustering(data, features, eps, min_samples)
+    print("已完成 DBSCAN 聚类")
+
+    # 层次 聚类
+    # 定义特征和层次聚类参数
+    features = ['Annual Income (k$)', 'Spending Score (1-100)']
+    method = 'ward'  # 基于最小化簇内方差
+    n_clusters = 5
+    # 调用层次聚类方法
+    hierarchical_clustering(data, features, method, n_clusters)
+    print("已完成层次聚类")
+
+    # 球形簇型分析
+    # 加载数据集
+    data = pd.read_csv('Spherical_Clusters_Customers.csv', index_col='CustomerID')
+    print(data.head(n=200))  # 打印数据集
+    data.Genre.value_counts()  # 统计性别分布
+
+    # 原始数据
+    rawdata()
+
+    # k-means 聚类
+    # 定义特征和最佳 K 值
+    features = ['Annual Income (k$)', 'Spending Score (1-100)']
+    best_k = 5
+    # 调用 K-means 聚类方法
+    k_means_clustering(data, features, best_k)
+    print("已完成 K-means 聚类")
+
+    # k-means++ 聚类
+    # 定义特征和最佳 K 值
+    features = ['Annual Income (k$)', 'Spending Score (1-100)']
+    best_k = 5
+
+    # 调用 k-means++ 聚类方法
+    k_means_plus_clustering(data, features, best_k)
+    print("已完成 K-means++ 聚类")
+
+    # DBSCAN 聚类
+    # 定义特征和 DBSCAN 参数
+    features = ['Annual Income (k$)', 'Spending Score (1-100)']
+    eps = 0.3
+    min_samples = 5
+    # 调用 DBSCAN 聚类方法
+    dbscan_clustering(data, features, eps, min_samples)
+    print("已完成 DBSCAN 聚类")
+
+    # 层次 聚类
+    # 定义特征和层次聚类参数
+    features = ['Annual Income (k$)', 'Spending Score (1-100)']
+    method = 'ward'  # 基于最小化簇内方差
+    n_clusters = 5
+    # 调用层次聚类方法
+    hierarchical_clustering(data, features, method, n_clusters)
+    print("已完成层次聚类")
